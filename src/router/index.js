@@ -5,7 +5,7 @@ Vue.use(Router)
 
 const login = resolve=> require(['@/page/login.vue'], resolve);
 const navigation = resolve=> require(['@/page/navigation.vue'], resolve);
-const jobMange = resole=> require(['@/page/jobMange.vue'], resole);
+const jobManage = resole=> require(['@/page/jobManage.vue'], resole);
 const jobCheck = resolve=> require(['@/page/jobCheck.vue'], resolve);
 const jobAssess = resolve=> require(['@/page/jobAssess.vue'], resolve);
 const jobAdjust = resolve=> require(['@/page/jobAdjust.vue'], resolve);
@@ -14,7 +14,7 @@ const companyManage = resolve=> require(['@/page/companyManage.vue'], resolve);
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     component: login
   },
   {
@@ -22,8 +22,8 @@ const routes = [
     component: navigation,
     name: '',
     children: [{
-      path: '/jobMange',
-      component: jobMange,
+      path: '/jobManage',
+      component: jobManage,
       meta: ['岗位设置'],
     },{
       path: '/jobCheck',
@@ -43,7 +43,7 @@ const routes = [
       meta: ['岗位申请'],
     },{
       path: '/companyMange',
-      component: companyMange,
+      component: companyManage,
       meta: ['企业管理'],
     },]
   },

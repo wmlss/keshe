@@ -13,9 +13,10 @@
       </el-col>
     </el-row>
     <el-row>
-      <keep-active>
         <router-view></router-view>
-      </keep-active>
+      <!-- <keep-active> keep-active not work???
+        <router-view></router-view>
+      </keep-active> -->
     </el-row>
   </div>
 </template>
