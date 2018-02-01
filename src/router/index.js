@@ -18,7 +18,7 @@ const routes = [
     component: login
   },
   {
-    path: '/content',
+    path: '/',
     component: navigation,
     name: '',
     children: [{
@@ -42,7 +42,7 @@ const routes = [
       component: jobApply,
       meta: ['岗位申请'],
     },{
-      path: '/companyMange',
+      path: '/companyManage',
       component: companyManage,
       meta: ['企业管理'],
     },]
