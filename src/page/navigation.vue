@@ -11,7 +11,7 @@
           <el-menu-item index="companyManage"><i class="el-icon-menu"></i>企业管理</el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span='8'>
+      <el-col :span='20'style="height: 100%;overflow: auto;">
         <router-view></router-view>
       </el-col>
     </el-row>
