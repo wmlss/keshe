@@ -1,6 +1,16 @@
 <template lang="html">
-<div >
+<div class="page-wrap">
   <head_top></head_top>
+  <el-row type="flex" class="row-bg page-pagination" justify="center">
+    <div class="fn-box">
+      <el-input
+        placeholder="请输入搜索内容"
+        >
+        <i slot="prefix" class="el-input__icon el-icon-search"></i>
+      </el-input>
+      <el-button type="primary" icon="el-icon-search" round>新增</el-button>
+    </div>
+  </el-row>
   <div class="table_container">
     <el-table
       :data="tableData"
@@ -60,58 +70,45 @@
     </el-table-column>
     </el-table>
   </div>
+
+  <el-row type="flex" class="row-bg page-pagination" justify="center">
+    <el-pagination class="border"
+      background
+      layout="prev, pager, next"
+      :total="1000">
+    </el-pagination>
+  </el-row>
 </div>
 
 </template>
 
 <script>
-import head_top from '../components/headTop';
-export default {
-  components: {
-    head_top,
-  },
-  data() {
-      return {
-        tableData: [{
-          id: '12987122',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987123',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987125',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }]
-      }
-    }
-}
+import jobManage from '../js/jobManage.js';
+
+export default jobManage;
 </script>
 
 <style lang="css" scoped>
+.border {
+  border: 1px solid black;
+}
 .table_container {
   padding: 20px;
+}
+.w-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.page-pagination {
+
+}
+.fn-box  {
+  /* width: 400px; */
+  margin-top: 10px;
+}
+.fn-box > .el-input{
+  width: 200px;
+  margin-right: 20px;
 }
 </style>
