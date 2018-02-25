@@ -15,7 +15,6 @@
         <router-view></router-view>
       </el-col>
     </el-row>
-
   </div>
 </template>
 

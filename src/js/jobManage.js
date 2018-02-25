@@ -6,43 +6,55 @@ export default {
   },
   data() {
       return {
-        tableData: [{
-          id: '12987122',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987123',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987125',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }]
+        tableData: [], //table data
+        workData: {}, //add's or modify's work Data
+        addDialogVisible: false, //control add's dialog open
+        modifyDialogVisible: false, //control modify's dialog open
+        formLabelWidth: '130px',
       };
     },
-    mounted: function () {
-      var width = document.getElementsByClassName('page-wrap')[0].clientWidth;
-      console.log(width);
+  mounted: function () {
+
+    for(var i=0; i<20; i++) {
+      var num = i + 1;
+      var item = {
+        workName: 'work name ' + num,
+        companyName: 'company name ' + num,
+        principal: 'company ' + num,
+        phone: 'phone ' + num,
+        wage: 'wage ' + num,
+        workPlace: 'workPlace ' + num,
+        startTime: 'startTime ' + num,
+        endTime: 'endTime ' + num,
+        workStartTime: 'workStartTime ' + num,
+        workEndTime: 'workEndTime ' + num,
+        workDesc: 'workDesc ' + num,
+      };
+      this.tableData.push(item);
+    }
+  },
+  methods: {
+    handleAdd: function() {
+      this.addDialogVisible = true;
     },
+    handleEdit: function(row) {
+      this.workData = deepCopy(row);
+      this.modifyDialogVisible  = true;
+    },
+  }
 };
+//obj deep copy
+function deepCopy(original) {
+  var obj = {};
+  var keys = Object.keys(original);
+  
+  for (var i=0; i<keys.length; i++) {
+    var val = original[keys[i]];
+    if (typeof val  === 'object') {
+      obj[keys[i]] = deepCopy(val);
+    } else {
+      obj[keys[i]] = val;
+    }
+  }
+  return obj;
+}
