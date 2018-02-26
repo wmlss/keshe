@@ -18,12 +18,17 @@ export default {
     for(var i=0; i<20; i++) {
       var num = i + 1;
       var item = {
-        studentId: 'studentId ' + num,
-        studentName: 'studentName ' + num,
+        workName: 'work name ' + num,
+        companyName: 'company name ' + num,
+        principal: 'company ' + num,
         phone: 'phone ' + num,
-        workName: 'workName' + num,
-        averageScore: 'averageScore' + num,
-        applyDesc: 'applyDesc ' + num,
+        wage: 'wage ' + num,
+        workPlace: 'workPlace ' + num,
+        startTime: 'startTime ' + num,
+        endTime: 'endTime ' + num,
+        workStartTime: 'workStartTime ' + num,
+        workEndTime: 'workEndTime ' + num,
+        workDesc: 'workDesc ' + num,
       };
       this.tableData.push(item);
     }
