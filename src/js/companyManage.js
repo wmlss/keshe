@@ -7,7 +7,7 @@ export default {
   data() {
       return {
         tableData: [], //table data
-        workData: {}, //add's or modify's work Data
+        companyData: {}, //add's or modify's work Data
         addDialogVisible: false, //control add's dialog open
         modifyDialogVisible: false, //control modify's dialog open
         formLabelWidth: '130px',
@@ -31,7 +31,7 @@ export default {
       this.addDialogVisible = true;
     },
     handleEdit: function(row) {
-      this.workData = deepCopy(row);
+      this.companyData = deepCopy(row);
       this.modifyDialogVisible  = true;
     },
   }

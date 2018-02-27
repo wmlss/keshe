@@ -8,7 +8,7 @@
         >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
-      <el-button type="primary" icon="el-icon-search" round @click="handleAdd">新增</el-button>
+      <!-- <el-button type="primary" icon="el-icon-search" round @click="handleAdd">新增</el-button> -->
     </div>
   </el-row>
   <div class="table_container">
@@ -126,45 +126,42 @@
   <el-dialog title="岗位详情" :visible.sync="modifyDialogVisible">
     <el-form :model="workData" :inline="true" class="form">
       <el-form-item label="岗位" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.workName" auto-complete="off"></el-input>
+        {{workData.workName}}
       </el-form-item>
       <el-form-item label="公司" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.companyName" auto-complete="off"></el-input>
+        {{workData.companyName}}
       </el-form-item>
+      <br>
       <el-form-item label="负责人" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.principal" auto-complete="off"></el-input>
+        {{workData.principal}}
       </el-form-item>
       <el-form-item label="电话" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.phone" auto-complete="off"></el-input>
+        {{workData.phone}}
       </el-form-item>
+      <br>
       <el-form-item label="时薪" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.wage" auto-complete="off"></el-input>
+        {{workData.wage}}
       </el-form-item>
       <el-form-item label="工作地点" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.workPlace" auto-complete="off"></el-input>
+        {{workData.workPlace}}
       </el-form-item>
+      <br>
       <el-form-item label="发布时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择发布时间"
-          class="form-item" v-model="workData.startTime">
-        </el-date-picker>
+        {{workData.startTime}}
       </el-form-item>
       <el-form-item label="截止时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择截止时间"
-         class="form-item" v-model="workData.endTime">
-        </el-date-picker>
+        {{workData.endTime}}
       </el-form-item>
+      <br>
       <el-form-item label="工作开始时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择工作开始时间"
-          class="form-item" v-model="workData.workStartTime">
-        </el-date-picker>
+        {{workData.workStartTime}}
       </el-form-item>
       <el-form-item label="工作结束时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择工作结束时间"
-          class="form-item" v-model="workData.workEndTime">
-        </el-date-picker>
+        {{workData.workEndTime}}
       </el-form-item>
+      <br>
       <el-form-item label="工作描述" :label-width="formLabelWidth">
-        <el-input type="textarea" class="form-item" v-model="workData.workDesc" auto-complete="off"></el-input>
+        {{workData.workDesc}}
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer text-center">

@@ -7,7 +7,7 @@ export default {
   data() {
       return {
         tableData: [], //table data
-        workData: {}, //add's or modify's work Data
+        companyData: {}, //add's or modify's work Data
         addDialogVisible: false, //control add's dialog open
         modifyDialogVisible: false, //control modify's dialog open
         formLabelWidth: '130px',
@@ -47,7 +47,7 @@ export default {
 function deepCopy(original) {
   var obj = {};
   var keys = Object.keys(original);
-  
+
   for (var i=0; i<keys.length; i++) {
     var val = original[keys[i]];
     if (typeof val  === 'object') {
