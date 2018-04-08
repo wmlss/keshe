@@ -3,12 +3,14 @@
   <head_top></head_top>
   <el-row type="flex" class="row-bg page-pagination" justify="center">
     <div class="fn-box">
-      <el-input
+      <el-input v-model="searchVal"
         placeholder="请输入搜索内容"
         >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
+      <el-button type="success" icon="el-icon-search" round @click="handleSearch">搜索</el-button>
       <el-button type="primary" icon="el-icon-search" round @click="handleAdd">新增</el-button>
+      <el-button type="warning" icon="el-icon-search" round @click="getCompanys">刷新</el-button>
     </div>
   </el-row>
   <div class="table_container">
@@ -43,7 +45,7 @@
           <el-button
             size="mini"
             type="warning"
-            @click="handleEdit(scope.row)">编辑</el-button>
+            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button
             size="mini"
             type="danger"
@@ -80,7 +82,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer text-center">
       <el-button @click="addDialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
+      <el-button type="primary" @click="handleAdded">确 定</el-button>
     </div>
   </el-dialog>
 
@@ -102,7 +104,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer text-center">
       <el-button @click="addDialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
+      <el-button type="primary" @click="handleEdited">确 定</el-button>
     </div>
   </el-dialog>
 </div>

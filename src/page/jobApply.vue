@@ -19,32 +19,35 @@
       <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
-          <el-form-item label="申请描述">
-            <span>{{ props.row.applyDesc }}</span>
+          <el-form-item label="个人描述">
+            <span>{{ props.row.student.desc }}</span>
           </el-form-item>
         </el-form>
       </template>
       </el-table-column>
       <el-table-column
       label="学号"
-      prop="studentId">
+      prop="student.studentId">
       </el-table-column>
       <el-table-column
       label="姓名"
-      prop="studentName">
+      prop="student.studentName">
       </el-table-column>
       <el-table-column
-      label="申请岗位"
-      prop="workName">
+      label="申请岗位">
       <template slot-scope="props">
-        <a style="text-decoration: underline;" href="#">
-          {{props.row.workName}}
+        <a style="text-decoration: underline;" href="#" @click="workDetail(props.row)">
+          {{props.row.work.workName}}
         </a>
       </template>
       </el-table-column>
       <el-table-column
+      label="状态"
+      prop="boolVal">
+      </el-table-column>
+      <el-table-column
       label="平均评分"
-      prop="averageScore">
+      prop="student.score">
       </el-table-column>
       <el-table-column label="操作">
       <template slot-scope="scope">
@@ -52,11 +55,15 @@
           <el-button
             size="mini"
             type="success"
-            @click="handleEdit(scope.row)">允许</el-button>
+            @click="handleRelease(scope.$index, scope.row)">允许</el-button>
+          <el-button
+            size="mini"
+            type="warning"
+            @click="handleCancel(scope.$index, scope.row)">拒绝</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">拒绝</el-button>
+            @click="handleDel(scope.$index, scope.row)">删除</el-button>
         </el-button-group>
       </template>
     </el-table-column>
@@ -165,7 +172,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer text-center">
-      <el-button @click="addDialogVisible = false">取 消</el-button>
+      <el-button @click="modifyDialogVisible = false">取 消</el-button>
     </div>
   </el-dialog>
 </div>

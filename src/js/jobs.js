@@ -77,23 +77,24 @@ export default {
     },
   mounted: function () {
     this.getJobs();
-    this.getCompanys();
   },
   methods: {
-    handleAdd: function() {
-      this.workData = {};
-      this.addDialogVisible = true;
-    },
-    handleAdded: async function() {
-      var data = this.workData;
-      var res = await axios
-                       .post(this.domain + '/api/work/add/', data)
-                       .catch(err=> {
-                          tool.error('添加失败');
-                        });
-      this.$message('添加成功');
-      this.getJobs();
-      this.addDialogVisible = false;
+    //处理申请
+    handleApply: async function(index, row) {
+      var data = {
+        workId : row._id,
+        studentId : localStorage.token
+      }
+     await axios
+         .post(this.domain + '/api/apply/add', data)
+         .then(res=> {
+           if(res.status == 200) {
+             this.$message('已申请');
+           }
+         })
+         .catch(err=> {
+            tool.error('申请失败');
+          });
     },
     //处理搜索
     handleSearch: async function() {
@@ -105,49 +106,35 @@ export default {
       this.$message('搜索成功');
       this.tableData = res.data;
     },
-    //处理打开详情
-    handleEdit: function(index, row) {
-      this.selectedIndex = index;
-      this.workData = deepCopy(row);
-      this.modifyDialogVisible  = true;
-    },
-    //处理修改提交
-    handleEdited: async function() {
-      var data = this.workData;
-      axios
-       .put(this.domain + '/api/work/update/' + data._id, data)
-       .then(res=> {
-         this.$message('修改成功');
-         this.tableData[this.selectedIndex] = this.workData;
-         this.getJobs();
-         this.modifyDialogVisible  = false;
-       })
-       .catch(err=> {
-          tool.error('修改失败');
-        });
-    },
-    //处理删除
-    handleDelete: async function(index, row) {
-      var res = await axios
-                       .delete(this.domain + '/api/work/delete/' + row._id)
-                       .catch(err=> {
-                          tool.error('删除失败');
-                        });
-      this.$message('删除成功');
-      this.getJobs();
-      this.modifyDialogVisible  = false;
-    },
     //获取岗位数据
     getJobs: async function() {
-      axios.get(this.domain + '/api/work/get' )
+      var applyedWorkId = [];
+      await axios.get(this.domain + '/api/apply/getAll' )
       .then(res=> {
         res.data.forEach(item=> {
-          item.startTime = tool.getYMD(item.startTime);
-          item.endTime = tool.getYMD(item.endTime);
-          item.workStartTime = tool.getYMD(item.workStartTime);
-          item.workEndTime = tool.getYMD(item.workEndTime);
+          //此学号已申请的
+          if (item.student.studentId == localStorage.token) {
+            applyedWorkId.push(item.work._id)
+          }
         });
-        this.tableData = res.data;
+      })
+      .catch(err=> {
+        tool.error('获取信息失败');
+      });
+
+      axios.get(this.domain + '/api/work/get' )
+      .then(res=> {
+        var tableData = [];
+        res.data.forEach(item=> {
+          if (item.bool && (applyedWorkId.indexOf(item._id)==-1) ) {
+            item.startTime = tool.getYMD(item.startTime);
+            item.endTime = tool.getYMD(item.endTime);
+            item.workStartTime = tool.getYMD(item.workStartTime);
+            item.workEndTime = tool.getYMD(item.workEndTime);
+            tableData.push(item);
+          }
+        });
+        this.tableData = tableData;
       })
       .catch(err=> {
         console.log(err);

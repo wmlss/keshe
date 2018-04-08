@@ -3,12 +3,12 @@
   <head_top></head_top>
   <el-row type="flex" class="row-bg page-pagination" justify="center">
     <div class="fn-box">
-      <el-input
+      <el-input v-model="searchVal"
         placeholder="请输入搜索内容"
         >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
-      <el-button type="primary" icon="el-icon-search" round @click="handleAdd">新增</el-button>
+      <el-button type="primary" icon="el-icon-search" round @click="handleSearch">搜索</el-button>
     </div>
   </el-row>
   <div class="table_container">
@@ -52,6 +52,10 @@
       prop="workName">
       </el-table-column>
       <el-table-column
+      label="已发布"
+      prop="boolVal">
+      </el-table-column>
+      <el-table-column
       label="公司名"
       prop="companyName">
       </el-table-column>
@@ -72,12 +76,16 @@
         <el-button-group>
           <el-button
             size="mini"
-            type="warning"
-            @click="handleEdit(scope.row)">编辑</el-button>
+            type="success"
+            @click="handleRelease(scope.$index, scope.row)">发布</el-button>
           <el-button
             size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            type="warning"
+            @click="handleCancel(scope.$index, scope.row)">取消</el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDel(scope.$index, scope.row)">删除</el-button>
         </el-button-group>
       </template>
     </el-table-column>
@@ -198,9 +206,9 @@
 </template>
 
 <script>
-import jobManage from '../js/jobManage.js';
+import jobCheck from '../js/jobCheck.js';
 
-export default jobManage;
+export default jobCheck;
 </script>
 
 <style lang="css" scoped>

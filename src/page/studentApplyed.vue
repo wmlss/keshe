@@ -2,14 +2,14 @@
 <div class="page-wrap">
   <head_top></head_top>
   <el-row type="flex" class="row-bg page-pagination" justify="center">
-    <!-- <div class="fn-box">
+    <div class="fn-box">
       <el-input
         placeholder="请输入搜索内容"
         >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
-      <el-button type="primary" icon="el-icon-search" round @click="handleAdd">新增</el-button>
-    </div> -->
+      <!-- <el-button type="primary" icon="el-icon-search" round @click="handleAdd">新增</el-button> -->
+    </div>
   </el-row>
   <div class="table_container">
     <el-table
@@ -41,24 +41,25 @@
         </a>
       </template>
       </el-table-column>
+
       <el-table-column
-      label="状态"
-      prop="boolVal">
-      </el-table-column>
-      <el-table-column
-      label="平均评分"
+      label="得到评分"
       prop="student.score">
       </el-table-column>
-      <el-table-column label="操作">
+      <!-- <el-table-column label="操作">
       <template slot-scope="scope">
         <el-button-group>
           <el-button
             size="mini"
             type="success"
-            @click="handleAdjust(scope.$index, scope.row)">调整岗位</el-button>
+            @click="handleRelease(scope.$index, scope.row)">允许</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleCancel(scope.$index, scope.row)">拒绝</el-button>
         </el-button-group>
       </template>
-    </el-table-column>
+    </el-table-column> -->
     </el-table>
   </div>
 
@@ -69,77 +70,6 @@
       :total="1000">
     </el-pagination>
   </el-row>
-
-  <!-- add Form -->
-  <el-dialog title="选择调整岗位" :visible.sync="workDialogVisible" size="large">
-    <el-table
-      :data="workTable"
-      :height="480"
-      ref="table"
-      style="width: 100%">
-      <el-table-column type="expand">
-      <template slot-scope="props">
-        <el-form label-position="left" inline class="demo-table-expand">
-          <el-form-item label="公司：">
-            <span>{{ props.row.companyName }}</span>
-          </el-form-item>
-          <el-form-item label="负责人：">
-            <span>{{ props.row.principal }}</span>
-          </el-form-item>
-          <el-form-item label="联系电话：">
-            <span>{{ props.row.phone }}</span>
-          </el-form-item>
-          <el-form-item label="发布时间">
-            <span>{{ props.row.startTime }}</span>
-          </el-form-item>
-          <br>
-          <el-form-item label="工作地点：">
-            <span>{{ props.row.workPlace }}</span>
-          </el-form-item>
-          <el-form-item label="工作开始时间：">
-            <span>{{ props.row.workStartTime }}</span>
-          </el-form-item>
-          <el-form-item label="工作结束时间：">
-            <span>{{ props.row.workEndTime }}</span>
-          </el-form-item> <br>
-          <el-form-item label="工作描述">
-            <span>{{ props.row.workDesc }}</span>
-          </el-form-item>
-        </el-form>
-      </template>
-      </el-table-column>
-      <el-table-column
-      label="岗位名"
-      prop="workName">
-      </el-table-column>
-      <el-table-column
-      label="公司名"
-      prop="companyName">
-      </el-table-column>
-      <el-table-column
-      label="时薪"
-      prop="wage">
-      </el-table-column>
-      <el-table-column
-      label="截止时间"
-      prop="endTime">
-      </el-table-column>
-      <el-table-column
-      label="工作地点"
-      prop="workDesc">
-      </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button-group>
-            <el-button
-              size="mini"
-              type="success"
-              @click="handleAdjusted(scope.$index, scope.row)">选择</el-button>
-          </el-button-group>
-        </template>
-      </el-table-column>
-    </el-table>
-  </el-dialog>
 
   <!-- detail Form -->
   <el-dialog title="岗位详情" :visible.sync="modifyDialogVisible">
@@ -192,9 +122,9 @@
 </template>
 
 <script>
-import jobAdjust from '../js/jobAdjust.js';
+import studentApplyed from '../js/studentApplyed.js';
 
-export default jobAdjust;
+export default studentApplyed;
 </script>
 
 <style lang="css" scoped>

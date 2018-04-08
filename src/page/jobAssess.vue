@@ -2,14 +2,14 @@
 <div class="page-wrap">
   <head_top></head_top>
   <el-row type="flex" class="row-bg page-pagination" justify="center">
-    <div class="fn-box">
+    <!-- <div class="fn-box">
       <el-input
         placeholder="请输入搜索内容"
         >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
       <el-button type="primary" icon="el-icon-search" round @click="handleAdd">新增</el-button>
-    </div>
+    </div> -->
   </el-row>
   <div class="table_container">
     <el-table
@@ -19,65 +19,43 @@
       <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
-          <el-form-item label="公司：">
-            <span>{{ props.row.companyName }}</span>
-          </el-form-item>
-          <el-form-item label="负责人：">
-            <span>{{ props.row.principal }}</span>
-          </el-form-item>
-          <el-form-item label="联系电话：">
-            <span>{{ props.row.phone }}</span>
-          </el-form-item>
-          <el-form-item label="发布时间">
-            <span>{{ props.row.startTime }}</span>
-          </el-form-item>
-          <br>
-          <el-form-item label="工作地点：">
-            <span>{{ props.row.workPlace }}</span>
-          </el-form-item>
-          <el-form-item label="工作开始时间：">
-            <span>{{ props.row.workStartTime }}</span>
-          </el-form-item>
-          <el-form-item label="工作结束时间：">
-            <span>{{ props.row.workEndTime }}</span>
-          </el-form-item> <br>
-          <el-form-item label="工作描述">
-            <span>{{ props.row.workDesc }}</span>
+          <el-form-item label="个人描述">
+            <span>{{ props.row.student.desc }}</span>
           </el-form-item>
         </el-form>
       </template>
       </el-table-column>
       <el-table-column
-      label="岗位名"
-      prop="workName">
+      label="学号"
+      prop="student.studentId">
       </el-table-column>
       <el-table-column
-      label="公司名"
-      prop="companyName">
+      label="姓名"
+      prop="student.studentName">
       </el-table-column>
       <el-table-column
-      label="时薪"
-      prop="wage">
+      label="工作岗位">
+      <template slot-scope="props">
+        <a style="text-decoration: underline;" href="#" @click="workDetail(props.row)">
+          {{props.row.work.workName}}
+        </a>
+      </template>
       </el-table-column>
       <el-table-column
-      label="截止时间"
-      prop="endTime">
+      label="状态"
+      prop="boolVal">
       </el-table-column>
       <el-table-column
-      label="工作地点"
-      prop="workDesc">
+      label="现在评分"
+      prop="scoreVal">
       </el-table-column>
       <el-table-column label="操作">
       <template slot-scope="scope">
         <el-button-group>
           <el-button
             size="mini"
-            type="warning"
-            @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            type="success"
+            @click="handleScore(scope.$index, scope.row)">评分</el-button>
         </el-button-group>
       </template>
     </el-table-column>
@@ -93,104 +71,58 @@
   </el-row>
 
   <!-- add Form -->
-  <el-dialog title="新增岗位" :visible.sync="addDialogVisible">
-    <el-form :model="workData" :inline="true" class="form">
-      <el-form-item label="岗位" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.workName" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="公司" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.companyName" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="负责人" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.principal" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="电话" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.phone" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="时薪" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.wage" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="工作地点" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.workPlace" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="发布时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择发布时间"
-          class="form-item" v-model="workData.startTime">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="截止时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择截止时间"
-         class="form-item" v-model="workData.endTime">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="工作开始时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择工作开始时间"
-          class="form-item" v-model="workData.workStartTime">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="工作结束时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择工作结束时间"
-          class="form-item" v-model="workData.workEndTime">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="工作描述" :label-width="formLabelWidth">
-        <el-input type="textarea" class="form-item" v-model="workData.workDesc" auto-complete="off"></el-input>
-      </el-form-item>
-    </el-form>
-    <div slot="footer" class="dialog-footer text-center">
-      <el-button @click="addDialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
-    </div>
+  <el-dialog title="评分" :visible.sync="scoreDialogVisible" size="mini">
+      <el-input v-model="score" placeholder="请输入评分"></el-input>
+      <div slot="footer" class="dialog-footer text-center">
+        <el-button @click="scoreDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleScored">确定</el-button>
+      </div>
   </el-dialog>
 
-  <!-- modify Form -->
+  <!-- detail Form -->
   <el-dialog title="岗位详情" :visible.sync="modifyDialogVisible">
     <el-form :model="workData" :inline="true" class="form">
       <el-form-item label="岗位" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.workName" auto-complete="off"></el-input>
+        {{workData.workName}}
       </el-form-item>
       <el-form-item label="公司" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.companyName" auto-complete="off"></el-input>
+        {{workData.companyName}}
       </el-form-item>
+      <br>
       <el-form-item label="负责人" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.principal" auto-complete="off"></el-input>
+        {{workData.principal}}
       </el-form-item>
       <el-form-item label="电话" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.phone" auto-complete="off"></el-input>
+        {{workData.phone}}
       </el-form-item>
+      <br>
       <el-form-item label="时薪" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.wage" auto-complete="off"></el-input>
+        {{workData.wage}}
       </el-form-item>
       <el-form-item label="工作地点" :label-width="formLabelWidth">
-        <el-input class="form-item" v-model="workData.workPlace" auto-complete="off"></el-input>
+        {{workData.workPlace}}
       </el-form-item>
+      <br>
       <el-form-item label="发布时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择发布时间"
-          class="form-item" v-model="workData.startTime">
-        </el-date-picker>
+        {{workData.startTime}}
       </el-form-item>
       <el-form-item label="截止时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择截止时间"
-         class="form-item" v-model="workData.endTime">
-        </el-date-picker>
+        {{workData.endTime}}
       </el-form-item>
+      <br>
       <el-form-item label="工作开始时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择工作开始时间"
-          class="form-item" v-model="workData.workStartTime">
-        </el-date-picker>
+        {{workData.workStartTime}}
       </el-form-item>
       <el-form-item label="工作结束时间" :label-width="formLabelWidth">
-        <el-date-picker type="date" placeholder="选择工作结束时间"
-          class="form-item" v-model="workData.workEndTime">
-        </el-date-picker>
+        {{workData.workEndTime}}
       </el-form-item>
+      <br>
       <el-form-item label="工作描述" :label-width="formLabelWidth">
-        <el-input type="textarea" class="form-item" v-model="workData.workDesc" auto-complete="off"></el-input>
+        {{workData.workDesc}}
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer text-center">
-      <el-button @click="addDialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
+      <el-button @click="modifyDialogVisible = false">取 消</el-button>
     </div>
   </el-dialog>
 </div>
@@ -198,9 +130,9 @@
 </template>
 
 <script>
-import jobManage from '../js/jobManage.js';
+import jobAssess from '../js/jobAssess.js';
 
-export default jobManage;
+export default jobAssess;
 </script>
 
 <style lang="css" scoped>
